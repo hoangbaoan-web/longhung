@@ -275,25 +275,35 @@
 
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    var modal = new bootstrap.Modal(document.getElementById('introModal'));
-    var iframe = document.getElementById('youtubeVideo');
+document.addEventListener("DOMContentLoaded", function () {
+  var modalEl = document.getElementById('introModal');
+  var modal = new bootstrap.Modal(modalEl, {
+    backdrop: true,
+    keyboard: true
+  });
+  var iframe = document.getElementById('youtubeVideo');
 
-   
-    modal.show();
+  
+  modal.show();
+
+  
+  modalEl.addEventListener('shown.bs.modal', function () {
+    iframe.src = "https://www.youtube.com/embed/GF5bS2rZkSI?autoplay=1&mute=1";
+  });
+
+ 
+  modalEl.addEventListener('hidden.bs.modal', function () {
+    iframe.src = "";
+
+  
+    var backdrop = document.querySelector('.modal-backdrop');
+    if (backdrop) backdrop.remove();
 
     
-    document.getElementById('introModal').addEventListener('shown.bs.modal', function () {
-      iframe.src = "https://www.youtube.com/embed/GF5bS2rZkSI?autoplay=1&mute=1";
-    });
-
-   
-    document.getElementById('introModal').addEventListener('hidden.bs.modal', function () {
-      iframe.src = "";
-    });
+    document.body.style.overflow = 'auto';
   });
+});
 </script>
-
 
 
 
